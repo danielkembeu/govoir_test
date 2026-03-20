@@ -121,8 +121,11 @@ async def delete_item(object_id: str):
     if not item:
         raise HTTPException(status_code=404, detail="Item not found")
 
-    await delete_image(item.image_public_id)
+    deleted = delete_image(item.image_public_id)
 
-    await item.delete()
+    print(deleted)
+
+    if deleted['result'] == 'ok':
+        await item.delete()
 
     return {"message": "Deleted"}
