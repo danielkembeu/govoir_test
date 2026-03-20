@@ -16,30 +16,13 @@ class HttpClient {
       : endpoint;
     const url = `${baseUrl}/${normalizedEndpoint}`;
 
-    // Debug: trace l'URL finale appelée et les options.
-    console.log("[HttpClient] request", {
-      baseUrl: this.baseUrl,
-      normalizedBaseUrl: baseUrl,
-      endpoint,
-      normalizedEndpoint,
-      url,
-      method: options.method ?? "GET",
-      headers: options.headers,
-    });
-
     const response = await fetch(url, {
       ...options,
     });
 
     if (!response.ok) {
-      // Debug: log le corps brut pour comprendre pourquoi ça renvoie Not found.
       const text = await response.text();
-      console.log("[HttpClient] response not ok", {
-        url,
-        status: response.status,
-        statusText: response.statusText,
-        bodyText: text,
-      });
+
       if (!text) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
@@ -50,7 +33,7 @@ class HttpClient {
           detail?: string;
           [key: string]: unknown;
         };
-        console.log("[HttpClient] parsed error json", { url, data });
+
         throw new Error(
           `HTTP ${response.status} @ ${url} -> ${data.error ?? data.detail ?? text}`,
         );
@@ -70,15 +53,19 @@ class HttpClient {
     return this.request<R>(endpoint, { ...options, method: "GET" });
   }
 
-  post<R>(endpoint: string, body: unknown, options: RequestInit = {}): Promise<R> {
+  post<R>(
+    endpoint: string,
+    body: unknown,
+    options: RequestInit = {},
+  ): Promise<R> {
     return this.request<R>(endpoint, {
       ...options,
       method: "POST",
+      body: JSON.stringify(body),
       headers: {
         "Content-Type": "application/json",
         ...(options.headers || {}),
       },
-      body: JSON.stringify(body),
     });
   }
 
@@ -90,11 +77,11 @@ class HttpClient {
     return this.request<R>(endpoint, {
       ...options,
       method: "PATCH",
+      body: JSON.stringify(body),
       headers: {
         "Content-Type": "application/json",
         ...(options.headers || {}),
       },
-      body: JSON.stringify(body),
     });
   }
 
@@ -106,11 +93,11 @@ class HttpClient {
     return this.request<R>(endpoint, {
       ...options,
       method: "PUT",
+      body: JSON.stringify(body),
       headers: {
         "Content-Type": "application/json",
         ...(options.headers || {}),
       },
-      body: JSON.stringify(body),
     });
   }
 

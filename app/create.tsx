@@ -7,7 +7,7 @@ import { ArrowLeft } from "lucide-react-native";
 import { usePosts } from "@/hooks/usePosts";
 import { CreatePostCard } from "@/components/posts/CreatePostCard";
 import { pickImageFromLibrary } from "@/lib/posts/image-picker";
-import { Button, IconButton } from "@/components/ui/Button";
+import { IconButton } from "@/components/ui/Button";
 import { theme } from "@/styles/theme";
 
 export default function CreateScreen() {
@@ -16,11 +16,13 @@ export default function CreateScreen() {
 
   const onPickImage = React.useCallback(async () => {
     const picked = await pickImageFromLibrary();
+
     if (picked) query.setNewImage(picked);
   }, [query]);
 
   const handleSubmit = React.useCallback(async () => {
     const ok = await query.submitCreate();
+
     if (ok) router.back();
   }, [query, router]);
 

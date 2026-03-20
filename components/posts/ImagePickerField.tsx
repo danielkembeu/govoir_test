@@ -24,11 +24,13 @@ export function ImagePickerField({
   return (
     <View style={styles.wrapper}>
       <Text style={styles.label}>{label}</Text>
+
       <Button
         label={source ? "Changer l'image" : "Choisir une image"}
         onPress={onPick}
         variant="outline"
       />
+
       {source ? (
         <View style={styles.preview}>
           <Image
@@ -44,6 +46,7 @@ export function ImagePickerField({
           <Text style={styles.emptyText}>Aperçu de l'image</Text>
         </View>
       )}
+
       {source && onClear ? (
         <Button
           label="Retirer la sélection"

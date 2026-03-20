@@ -1,9 +1,4 @@
-import {
-  Modal,
-  StyleSheet,
-  Text,
-  View,
-} from "react-native";
+import { Modal, StyleSheet, Text, View } from "react-native";
 import type { Post } from "@/lib/posts/types";
 import { ImagePickerField } from "./ImagePickerField";
 import { Button } from "@/components/ui/Button";

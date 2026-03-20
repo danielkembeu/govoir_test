@@ -1,5 +1,6 @@
 export function formatPostDate(input: string) {
   const date = new Date(input);
+
   if (Number.isNaN(date.getTime())) return input;
 
   try {

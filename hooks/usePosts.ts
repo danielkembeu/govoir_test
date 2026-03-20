@@ -17,7 +17,9 @@ export function usePosts() {
 
   const [details, setDetails] = React.useState<Post | null>(null);
   const [updateTarget, setUpdateTarget] = React.useState<Post | null>(null);
-  const [updateImage, setUpdateImage] = React.useState<PickedImage | null>(null);
+  const [updateImage, setUpdateImage] = React.useState<PickedImage | null>(
+    null,
+  );
   const [deleteTarget, setDeleteTarget] = React.useState<Post | null>(null);
 
   const postsQuery = useQuery({
@@ -28,10 +30,12 @@ export function usePosts() {
   React.useEffect(() => {
     if (postsQuery.error) {
       console.log("[usePosts] postsQuery.error", postsQuery.error);
+
       const message =
         postsQuery.error instanceof Error
           ? postsQuery.error.message
           : "Erreur inconnue.";
+
       notify(message, "Erreur");
     }
   }, [postsQuery.error]);
@@ -48,18 +52,14 @@ export function usePosts() {
     onError: (error) => {
       const message =
         error instanceof Error ? error.message : "Erreur inconnue.";
+
       notify(message, "Erreur");
     },
   });
 
   const updateImageMutation = useMutation({
-    mutationFn: ({
-      id,
-      image,
-    }: {
-      id: string;
-      image: PickedImage;
-    }) => updatePostImage(id, image),
+    mutationFn: ({ id, image }: { id: string; image: PickedImage }) =>
+      updatePostImage(id, image),
     onSuccess: () => {
       notify("Image mise à jour.", "Succès");
       setUpdateTarget(null);
@@ -69,6 +69,7 @@ export function usePosts() {
     onError: (error) => {
       const message =
         error instanceof Error ? error.message : "Erreur inconnue.";
+
       notify(message, "Erreur");
     },
   });
@@ -83,6 +84,7 @@ export function usePosts() {
     onError: (error) => {
       const message =
         error instanceof Error ? error.message : "Erreur inconnue.";
+
       notify(message, "Erreur");
     },
   });
@@ -92,10 +94,12 @@ export function usePosts() {
       notify("Le titre est requis.", "Erreur");
       return false;
     }
+
     if (!newDescription.trim()) {
       notify("La description est requise.", "Erreur");
       return false;
     }
+
     if (!newImage) {
       notify("Une image est requise.", "Erreur");
       return false;
@@ -107,6 +111,7 @@ export function usePosts() {
         description: newDescription.trim(),
         image: newImage,
       });
+
       return true;
     } catch {
       return false;
@@ -115,6 +120,7 @@ export function usePosts() {
 
   const submitUpdateImage = React.useCallback(async () => {
     if (!updateTarget) return;
+
     if (!updateImage) {
       notify("Sélectionnez une image.", "Erreur");
       return;
@@ -128,6 +134,7 @@ export function usePosts() {
 
   const confirmDelete = React.useCallback(async () => {
     if (!deleteTarget) return;
+
     await deleteMutation.mutateAsync(deleteTarget.id);
   }, [deleteMutation, deleteTarget]);
 
