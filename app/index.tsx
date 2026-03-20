@@ -18,7 +18,7 @@ import { UpdateImageModal } from "@/components/posts/UpdateImageModal";
 import { DeletePostModal } from "@/components/posts/DeletePostModal";
 import { pickImageFromLibrary } from "@/lib/posts/image-picker";
 import type { Post } from "@/lib/posts/types";
-import { Button, IconButton } from "@/components/ui/Button";
+import { IconButton } from "@/components/ui/Button";
 import { theme } from "@/styles/theme";
 
 function filterPosts(posts: Post[], input: string) {
@@ -35,6 +35,7 @@ function filterPosts(posts: Post[], input: string) {
 export default function Index() {
   const router = useRouter();
   const query = usePosts();
+
   const [search, setSearch] = React.useState("");
 
   const filteredPosts = React.useMemo(
