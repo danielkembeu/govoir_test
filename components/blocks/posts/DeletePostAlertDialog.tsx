@@ -1,4 +1,3 @@
-import * as React from "react";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -11,7 +10,6 @@ import {
 } from "@/components/ui/alert-dialog";
 import { Spinner } from "@/components/ui/spinner";
 import { Post } from "@/lib/helpers/post-types";
-import { buttonVariants } from "@/components/ui/button";
 
 interface Props {
   open: boolean;
@@ -32,18 +30,25 @@ export function DeletePostAlertDialog({
     <AlertDialog open={open} onOpenChange={onOpenChange}>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle className="text-red-600">Supprimer ce post ?</AlertDialogTitle>
+          <AlertDialogTitle className="text-red-600">
+            Supprimer ce post ?
+          </AlertDialogTitle>
+          
           <AlertDialogDescription>
             Cette action est irréversible.
             {target ? ` "${target.title}" sera définitivement supprimé.` : ""}
           </AlertDialogDescription>
         </AlertDialogHeader>
+
         <AlertDialogFooter>
           <AlertDialogCancel disabled={busy}>Annuler</AlertDialogCancel>
+          
           <AlertDialogAction
             disabled={busy}
             onClick={onConfirm}
-            className={"bg-red-600 text-white hover:bg-red-700 transition-colors duration-300"}
+            className={
+              "bg-red-600 text-white hover:bg-red-700 transition-colors duration-300"
+            }
           >
             {busy ? (
               <>

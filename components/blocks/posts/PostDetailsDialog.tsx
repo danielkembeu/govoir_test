@@ -1,7 +1,7 @@
 import * as React from "react";
 import Image from "next/image";
 import type { Post } from "@/lib/helpers/post-types";
-import { formatPostDate } from "./format-post-date";
+import { formatPostDate } from "../../../lib/helpers/format-post-date";
 import {
   Dialog,
   DialogContent,

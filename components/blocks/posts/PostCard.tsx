@@ -2,7 +2,7 @@ import * as React from "react";
 import Image from "next/image";
 import { Eye, ImageIcon, Trash2 } from "lucide-react";
 import type { Post } from "@/lib/helpers/post-types";
-import { formatPostDate } from "./format-post-date";
+import { formatPostDate } from "../../../lib/helpers/format-post-date";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
