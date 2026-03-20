@@ -1,4 +1,5 @@
 from uuid import UUID
+from backend.core.cloudinary import delete_image
 from backend.models.object_model import Object
 from backend.schemas.objects_schema import ObjectImageUpdate, ObjectRead
 from backend.utils.handle_upload_image import handle_image
@@ -119,6 +120,8 @@ async def delete_item(object_id: str):
 
     if not item:
         raise HTTPException(status_code=404, detail="Item not found")
+
+    await delete_image(item.image_public_id)
 
     await item.delete()
 
